@@ -1,3 +1,5 @@
 [gd_scene format=3 uid="uid://c1xl3vv0a2b1d"]
 
-[node name="Node2D" type="Node2D"]
+[node name="GameUI" type="Control"]
+layout_mode = 3
+anchors_preset = 0
