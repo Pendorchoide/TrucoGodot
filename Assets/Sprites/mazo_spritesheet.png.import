@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bgsbsvd4va0xq"
-path="res://.godot/imported/1_de_espada_spr.png-fa527acb5b5694b5ba0ae17f5fa6cf11.ctex"
+uid="uid://cpo3f3hbf5d7x"
+path="res://.godot/imported/mazo_spritesheet.png-0185818d46dc6322e04b12dfb4ac8707.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/1_de_espada_spr.png"
-dest_files=["res://.godot/imported/1_de_espada_spr.png-fa527acb5b5694b5ba0ae17f5fa6cf11.ctex"]
+source_file="res://Assets/Sprites/mazo_spritesheet.png"
+dest_files=["res://.godot/imported/mazo_spritesheet.png-0185818d46dc6322e04b12dfb4ac8707.ctex"]
 
 [params]
 

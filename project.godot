@@ -11,15 +11,16 @@ config_version=5
 [application]
 
 config/name="TrucoProject"
-run/main_scene="res://principal_scene.tscn"
-config/features=PackedStringArray("4.5", "Mobile")
+run/main_scene="res://Scenes/principal_scene.tscn"
+config/features=PackedStringArray("4.5", "C#", "Mobile")
 config/icon="res://icon.svg"
 
 [display]
 
-window/size/viewport_width=1440
-window/size/viewport_height=2560
+window/size/viewport_width=180
+window/size/viewport_height=320
 window/size/resizable=false
+window/stretch/mode="canvas_items"
 
 [dotnet]
 

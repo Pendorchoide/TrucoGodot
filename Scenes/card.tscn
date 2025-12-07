@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://d0m5wsp1ifmyl"]
+
+[ext_resource type="Texture2D" uid="uid://cpo3f3hbf5d7x" path="res://Assets/Sprites/mazo_spritesheet.png" id="1_0qqmn"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rjlel"]
+size = Vector2(62, 96)
+
+[node name="Card" type="Node2D"]
+
+[node name="CardSpr" type="Sprite2D" parent="."]
+texture = ExtResource("1_0qqmn")
+region_enabled = true
+region_rect = Rect2(0, 0, 62, 95)
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+visible = false
+shape = SubResource("RectangleShape2D_rjlel")
