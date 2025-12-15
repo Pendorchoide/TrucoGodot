@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cpo3f3hbf5d7x"
-path="res://.godot/imported/mazo_spritesheet.png-0185818d46dc6322e04b12dfb4ac8707.ctex"
+path="res://.godot/imported/mazo_spritesheet.png-5c9b7370c7a09b3e6e9af74679ac85ac.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/mazo_spritesheet.png"
-dest_files=["res://.godot/imported/mazo_spritesheet.png-0185818d46dc6322e04b12dfb4ac8707.ctex"]
+source_file="res://Mesa_Scn/Assets/Sprites/mazo_spritesheet.png"
+dest_files=["res://.godot/imported/mazo_spritesheet.png-5c9b7370c7a09b3e6e9af74679ac85ac.ctex"]
 
 [params]
 

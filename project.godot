@@ -11,16 +11,17 @@ config_version=5
 [application]
 
 config/name="TrucoProject"
-run/main_scene="res://Scenes/principal_scene.tscn"
+run/main_scene="res://Mesa_Scn/Scenes/principal_scene.tscn"
 config/features=PackedStringArray("4.5", "C#", "Mobile")
-config/icon="res://icon.svg"
+config/icon="uid://1trp8yu0c46y"
 
 [display]
 
-window/size/viewport_width=180
-window/size/viewport_height=320
+window/size/viewport_width=288
+window/size/viewport_height=512
 window/size/resizable=false
-window/stretch/mode="canvas_items"
+window/stretch/mode="viewport"
+window/vsync/vsync_mode=0
 
 [dotnet]
 
@@ -30,3 +31,4 @@ project/assembly_name="TrucoProject"
 
 textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="mobile"
+2d/snap/snap_2d_transforms_to_pixel=true

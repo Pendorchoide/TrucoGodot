@@ -1,0 +1,48 @@
+[gd_scene load_steps=3 format=3 uid="uid://dxhq3hppye85i"]
+
+[ext_resource type="Texture2D" uid="uid://cpo3f3hbf5d7x" path="res://Mesa_Scn/Assets/Sprites/mazo_spritesheet.png" id="1_4we88"]
+[ext_resource type="Script" uid="uid://cbtfdis40bokm" path="res://Mesa_Scn/Scripts/Deck.cs" id="1_qf3i8"]
+
+[node name="Mazo" type="Node2D"]
+script = ExtResource("1_qf3i8")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_4we88")
+region_enabled = true
+region_rect = Rect2(620, 0, 62, 95)
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+position = Vector2(0, -3)
+texture = ExtResource("1_4we88")
+region_enabled = true
+region_rect = Rect2(620, 0, 62, 95)
+
+[node name="Sprite2D3" type="Sprite2D" parent="."]
+position = Vector2(0, -6)
+texture = ExtResource("1_4we88")
+region_enabled = true
+region_rect = Rect2(620, 0, 62, 95)
+
+[node name="Sprite2D4" type="Sprite2D" parent="."]
+position = Vector2(0, -9)
+texture = ExtResource("1_4we88")
+region_enabled = true
+region_rect = Rect2(620, 0, 62, 95)
+
+[node name="Sprite2D5" type="Sprite2D" parent="."]
+position = Vector2(0, -12)
+texture = ExtResource("1_4we88")
+region_enabled = true
+region_rect = Rect2(620, 0, 62, 95)
+
+[node name="Sprite2D6" type="Sprite2D" parent="."]
+position = Vector2(0, -15)
+texture = ExtResource("1_4we88")
+region_enabled = true
+region_rect = Rect2(620, 0, 62, 95)
+
+[node name="Sprite2D7" type="Sprite2D" parent="."]
+position = Vector2(0, -18)
+texture = ExtResource("1_4we88")
+region_enabled = true
+region_rect = Rect2(620, 0, 62, 95)

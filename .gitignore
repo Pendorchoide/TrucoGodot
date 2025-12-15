@@ -1,4 +1,9 @@
 # Godot 4+ specific ignores
+.vscode
 .godot/
+<<<<<<< HEAD
 /android/
 sfesef
+=======
+/android/
+>>>>>>> d6fbaf5fb6042c5058ba5533aaca5b27224c8ea0

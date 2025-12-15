@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://c1xl3vv0a2b1d"]
+
+[ext_resource type="PackedScene" uid="uid://d0m5wsp1ifmyl" path="res://Mesa_Scn/Scenes/card.tscn" id="1_ksok5"]
+[ext_resource type="Script" uid="uid://00likeaj7i5r" path="res://Mesa_Scn/Scripts/CardManager.cs" id="2_4kg7n"]
+
+[node name="Main" type="Node2D"]
+
+[node name="CardManager" type="Node2D" parent="."]
+script = ExtResource("2_4kg7n")
+
+[node name="Card3" parent="CardManager" instance=ExtResource("1_ksok5")]
+position = Vector2(199.00002, 437)
+
+[node name="Card2" parent="CardManager" instance=ExtResource("1_ksok5")]
+position = Vector2(84.99999, 437.00003)
+
+[node name="Card" parent="CardManager" instance=ExtResource("1_ksok5")]
+position = Vector2(142, 437)
