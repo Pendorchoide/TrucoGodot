@@ -38,6 +38,10 @@ public partial class Card : Node2D
 	[Export] public bool popping = false;
 					bool popGrowing = true;
 
+	//Hover effect variables
+	[Export] public bool hovered = false;
+			 public bool cancelHoverEffect = false; //para frenar el hover si esta activo
+
 	//Rotation variables
 	[Export] public bool rotatingToZero = false;
 	[Export] public bool returningToOriginalRotation = false;
@@ -73,7 +77,6 @@ public partial class Card : Node2D
 
 		if (shaking)
 			ShakeEffect(delta);
-
 		if(returningToOrigin)
 		   ReturnToOriginalPosition(delta);
 		if(shrinking)
@@ -88,11 +91,15 @@ public partial class Card : Node2D
 		   PopEffect(delta);
 		if(goingToPosition)
 		   GoToPosition(delta);
+		if(hovered)
+		   HoverEffect(delta);
+		else if (Scale != originalScale)
+		   StopHoverEffect(delta);
 	}
 
 	private void SetCardSprite()
 {
-	GD.Print($"Carta: {value} de {suit}");
+
     Sprite2D sprite = GetNode<Sprite2D>("Sprite2D");
 
     sprite.RegionEnabled = true;
@@ -179,7 +186,7 @@ public partial class Card : Node2D
 		Position = new Vector2 (Mathf.Lerp(Position.X, targetPosition.X, (float)delta * lerpVel),
 								Mathf.Lerp(Position.Y, targetPosition.Y, (float)delta * lerpVel));
 		
-		if (Position.DistanceTo(targetPosition) < 0.1f) // Si esta cerca de la posicion objetivo
+		if (Position.DistanceTo(targetPosition) < 1f) // Si esta cerca de la posicion objetivo
 		{
 			Position = targetPosition;
 			goingToPosition = false;
@@ -306,22 +313,61 @@ public partial class Card : Node2D
 		returningToOriginalRotation = true;
 	}
 
+	private void HoverEffect(double delta)
+	{
+		float speed = 30f;
+		Vector2 targetScale = originalScale * 1.2f;
+
+		if (!cancelHoverEffect)
+		{
+			Scale = Scale.Lerp(targetScale, (float)delta * speed);
+
+			if (Scale.DistanceTo(targetScale) < 0.1f)
+			{
+				Scale = targetScale;
+			}
+		}
+	}
+
+	public void StopHoverEffect(double delta)
+	{
+		float speed = 30f;
+		Scale = Scale.Lerp(originalScale, (float)delta * speed);
+
+			if (Scale.DistanceTo(originalScale) < 0.1f)
+			{
+				Scale = originalScale;
+			}
+	}
+
+	public void StopAllPositionEffects()
+	{
+		returningToOrigin = false;
+		goingToPosition = false;
+	}
+	
+
 	private void StopAllRotationEffects()
-{
-    shaking = false;
-    rotatingToZero = false;
-    returningToOriginalRotation = false;
-}
+	{
+		shaking = false;
+		rotatingToZero = false;
+		returningToOriginalRotation = false;
+	}
 
-private void StopAllScaleEffects()
-{
-    shrinking = false;
-    resettingScale = false;
-    popping = false;
-	Scale = originalScale;
-}
+	private void StopAllScaleEffects()
+	{
+		shrinking = false;
+		resettingScale = false;
+		popping = false;
+		Scale = originalScale;
+	}
 
-
+	public void StopAllEffects()
+	{
+		StopAllPositionEffects();
+		StopAllRotationEffects();
+		StopAllScaleEffects();
+	}
 
 
 

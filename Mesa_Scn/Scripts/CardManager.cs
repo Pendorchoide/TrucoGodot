@@ -94,7 +94,46 @@ public partial class CardManager : Node2D
 					draggedCard = null; //Libera la carta arrastrada
 				}
 			}
+
 		}  
+
+		if (@event is InputEventMouseMotion) // hover
+    		{
+       		 Node2D hoveredArea = Raycast_check(); //guarda el area2D clickeada por el mouse
+					if (hoveredArea != null && hoveredArea.IsInGroup("card") )
+					{
+						Card hoveredCard = hoveredArea as Card;
+						if (!hoveredCard.isBeingDragged && hoveredCard.Position.DistanceTo(hoveredCard.originalPosition) < 0.1f)
+						{
+							hoveredCard.ZIndex = 10; //Trae la carta al frente al pasar el mouse por encima
+							hoveredCard.hovered=true; //Inicia el efecto de pop al pasar el mouse por encima
+						}
+						
+						foreach (Node cardNode in GetTree().GetNodesInGroup("card"))  //bajar las que no esten bajo el mouse
+						{
+							Card card = cardNode as Card;
+							if (card != null && !card.isBeingDragged && card != hoveredCard)
+							{
+								card.ZIndex = 0; //Devuelve la carta a su ZIndex original
+								card.hovered = false; //Detiene el efecto de hover
+							}
+						}
+					}
+					else
+					{
+						// Si no hay movimiento del mouse, detener el efecto de hover en todas las cartas
+						foreach (Node cardNode in GetTree().GetNodesInGroup("card"))
+						{
+							Card card = cardNode as Card;
+							if (card != null && !card.isBeingDragged)
+							{
+								card.ZIndex = 0; //Devuelve la carta a su ZIndex original
+								card.hovered = false; //Detiene el efecto de hover
+							}
+						}
+					}
+   			 }
+			 
 	}
 
 private void PlaceCardOnTable(Card card, Table table)
@@ -162,3 +201,8 @@ private void PlaceCardOnTable(Card card, Table table)
 	
 
 }
+
+
+//corregir shrink que no funciona
+// corregir cartas que se buggean cunado se ponen rapido al borde de la mesa
+//corregir z indexes de las cartas en la mano con el hover

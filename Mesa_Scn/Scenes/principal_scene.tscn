@@ -90,5 +90,6 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="UI" type="Sprite2D" parent="UI"]
+z_index = 200
 position = Vector2(144, 256)
 texture = ExtResource("4_w5sy0")
