@@ -1,10 +1,12 @@
-namespace TrucoProject.Net.Messages
+using System.Text.Json.Serialization;
 
+namespace TrucoProject.Net.Messages
 {
-    public class JoinRoomMessage
+    public class JoinRoomMessage : MessageBase
     {
-        public string Type { get; set; } = "joinRoom";
-        public string RoomId { get; set; } = "";
-        public string PlayerId { get; set; } = "";
+        [JsonPropertyName("roomId")]
+        public string RoomId { get; set; }
+
+        public JoinRoomMessage() : base("joinRoom") { }
     }
 }

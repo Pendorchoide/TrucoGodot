@@ -14,10 +14,15 @@ config/name="TrucoProject"
 run/main_scene="res://principal_scene.tscn"
 config/features=PackedStringArray("4.5", "C#", "Mobile")
 
+[autoload]
+
+WebSocketClient="*res://Net/WebSocket/WebSocketClient.cs"
+GameNet="*res://Game/GameNet.cs"
+
 [display]
 
-window/size/viewport_width=1440
-window/size/viewport_height=2560
+window/size/viewport_width=550
+window/size/viewport_height=550
 window/size/resizable=false
 
 [dotnet]

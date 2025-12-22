@@ -12,8 +12,7 @@ using TrucoProject.Net.Utils;
 
 namespace TrucoProject.Net.WebSocket
 {
-    public partial class WebSocketClient : Node
-    {
+    public partial class WebSocketClient : Node {
 
         public WebSocketConfig Config { get; private set; }
         public WebSocketState State { get; private set; } = WebSocketState.Disconnected;
@@ -26,37 +25,34 @@ namespace TrucoProject.Net.WebSocket
         private readonly Queue<string> _sendQueue = new();
         private readonly byte[] _buffer = new byte[8192];
 
+        public static WebSocketClient Instance { get; private set; }
 
-        public override void _Process(double delta)
-        {
-            FlushSendQueue();
+        public override void _EnterTree() {
+            Instance = this;
         }
 
-        // ------------------------------
-        // CONNECT
-        // ------------------------------
-        public async Task ConnectAsync(WebSocketConfig config)
-        {
-            if (State != WebSocketState.Disconnected)
-                return;
+        public WebSocketClient() {
+            Instance = this;
+        }
+
+        public async Task ConnectAsync(WebSocketConfig config) {
+            if (State != WebSocketState.Disconnected) return;
 
             Config = config;
             _cts = new CancellationTokenSource();
             _socket = new ClientWebSocket();
-
             State = WebSocketState.Connecting;
+
             NetLogger.Info($"[WS] Connecting to {config.Url}");
 
-            try
-            {
+            try {
                 await _socket.ConnectAsync(new Uri(config.Url), _cts.Token);
-            }
-            catch (Exception ex)
-            {
-                NetLogger.Error($"[WS] Connection error: {ex.Message}");
+            } 
+            catch (Exception e) {
+                NetLogger.Error($"[WS] Connection error: {e.Message}");
                 State = WebSocketState.Disconnected;
 
-                NetEventBus.Emit(new NetEvent(NetEvent.Type.ConnectionFailed, ex));
+                NetEventBus.Emit(new NetEvent(NetEvent.Type.ConnectionFailed, e));
                 return;
             }
 
@@ -65,34 +61,30 @@ namespace TrucoProject.Net.WebSocket
 
             NetEventBus.Emit(new NetEvent(NetEvent.Type.Connected));
 
-            // Start heartbeat
             _heartbeat = new Heartbeat(this, config.HeartbeatInterval);
 
             // Start receiving loop
             _ = Task.Run(ReceiveLoop);
         }
 
-        // ------------------------------
-        // DISCONNECT
-        // ------------------------------
-        public async Task DisconnectAsync()
-        {
-            if (State == WebSocketState.Disconnected)
-                return;
+        public async Task DisconnectAsync() {
+            if (State == WebSocketState.Disconnected) return;
 
             NetLogger.Warn("[WS] Disconnecting...");
             State = WebSocketState.Disconnecting;
 
-            try
-            {
+            try {
                 _cts.Cancel();
+                
                 await _socket.CloseAsync(
                     WebSocketCloseStatus.NormalClosure,
                     "Client close", 
                     CancellationToken.None
                 );
             }
-            catch { /* ignored */ }
+            catch (Exception e) {
+                NetLogger.Error(e.Message);
+            }
 
             State = WebSocketState.Disconnected;
             NetLogger.Warn("[WS] Disconnected");
@@ -100,66 +92,49 @@ namespace TrucoProject.Net.WebSocket
             NetEventBus.Emit(new NetEvent(NetEvent.Type.Disconnected));
         }
 
-        // ------------------------------
-        // SEND MESSAGES
-        // ------------------------------
-        public void Send(MessageBase msg)
-        {
+        public void Send(MessageBase msg) {
             string json = NetJson.Stringify(msg);
             _sendQueue.Enqueue(json);
+
+            FlushSendQueue();
         }
 
+        private async void FlushSendQueue() {
+            if (_socket == null || _socket.State != System.Net.WebSockets.WebSocketState.Open) return;
 
-        private async void FlushSendQueue()
-        {
-            if (_socket == null || _socket.State != System.Net.WebSockets.WebSocketState.Open)
-                return;
-
-            while (_sendQueue.Count > 0)
-            {
+            while (_sendQueue.Count > 0) {
                 string raw = _sendQueue.Dequeue();
                 byte[] bytes = Encoding.UTF8.GetBytes(raw);
 
-                try
-                {
+                try {
                     await _socket.SendAsync(bytes, WebSocketMessageType.Text, true, _cts.Token);
                 }
-                catch (Exception ex)
-                {
-                    NetLogger.Error($"[WS] Failed to send: {ex.Message}");
+                catch (Exception e) {
+                    NetLogger.Error($"[WS] Failed to send: {e.Message}");
                 }
             }
         }
 
-        // ------------------------------
-        // RECEIVE LOOP
-        // ------------------------------
-        private async Task ReceiveLoop()
-        {
+        private async Task ReceiveLoop() {
             NetLogger.Info("[WS] Receive loop started");
 
-            while (!_cts.IsCancellationRequested)
-            {
-                if (_socket.State != System.Net.WebSockets.WebSocketState.Open)
-                {
+            while (!_cts.IsCancellationRequested) {
+                if (_socket.State != System.Net.WebSockets.WebSocketState.Open) {
                     NetLogger.Warn("[WS] Socket closed unexpectedly");
                     break;
                 }
 
                 WebSocketReceiveResult result;
 
-                try
-                {
+                try {
                     result = await _socket.ReceiveAsync(_buffer, _cts.Token);
                 }
-                catch (Exception ex)
-                {
-                    NetLogger.Error($"[WS] Receive error: {ex.Message}");
+                catch (Exception e) {
+                    NetLogger.Error($"[WS] Receive error: {e.Message}");
                     break;
                 }
 
-                if (result.MessageType == WebSocketMessageType.Close)
-                {
+                if (result.MessageType == WebSocketMessageType.Close) {
                     NetLogger.Warn("[WS] Server closed connection");
                     await DisconnectAsync();
                     return;
@@ -170,39 +145,32 @@ namespace TrucoProject.Net.WebSocket
             }
         }
 
-        // ------------------------------
-        // HANDLE INCOMING MESSAGE
-        // ------------------------------
-        private void HandleIncoming(string json)
-        {
+        private void HandleIncoming(string json) {
             MessageBase msg;
 
-            try
-            {
+            try {
                 msg = MessageParser.Parse(json);
             }
-            catch (Exception ex)
-            {
-                NetLogger.Error($"[WS] Invalid message: {ex.Message}");
+            catch (Exception e) {
+                NetLogger.Error($"[WS] Invalid message: {e.Message}");
                 return;
             }
 
             // Built-in handling
-            switch (msg)
-            {
-                case ServerPingMessage ping:
-                    HandlePing(ping);
-                    return;
+            switch (msg) {
+                case ServerPingMessage:
+                    Send(new ClientPongMessage());
+                break;
+
+                case ServerPongMessage:
+                    _heartbeat.OnPong();                
+                break;
             }
 
             // Forward to game
-            NetEventBus.Emit(new NetEvent(NetEvent.Type.MessageReceived, msg));
-        }
-
-        private void HandlePing(ServerPingMessage ping)
-        {
-            Send(new ClientPingMessage());
-            NetEventBus.Emit(new NetEvent(NetEvent.Type.PingReceived));
+            if (msg is not ServerPingMessage && msg is not ServerPongMessage) {
+                NetEventBus.Emit(new NetEvent(NetEvent.Type.MessageReceived, msg));
+            }
         }
     }
 }

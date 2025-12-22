@@ -7,9 +7,8 @@ namespace TrucoProject.Net.Events
             Connected,
             ConnectionFailed,
             Disconnected,
-
             MessageReceived,
-            PingReceived
+            CreateRoomResult
         }
 
         public Type EventType { get; }

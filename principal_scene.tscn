@@ -1,14 +1,15 @@
 [gd_scene load_steps=3 format=3 uid="uid://c1xl3vv0a2b1d"]
 
+[ext_resource type="PackedScene" uid="uid://ca0toy4x41q34" path="res://UI/Main menu/main_menu.tscn" id="1_qasjf"]
 [ext_resource type="Texture2D" uid="uid://dhbljxc0rtpma" path="res://Assets/Sprites/1_de_basto_spr.png" id="1_wpetw"]
-[ext_resource type="Script" uid="uid://cttb2qn4xsevw" path="res://scripts/websocket/NetClient.cs" id="2_qasjf"]
 
 [node name="GameUI" type="Control"]
 layout_mode = 3
 anchors_preset = 0
 
+[node name="MainMenu" parent="." instance=ExtResource("1_qasjf")]
+
 [node name="1_Basto" type="Node2D" parent="."]
-script = ExtResource("2_qasjf")
 
 [node name="Sprite2D" type="Sprite2D" parent="1_Basto"]
 position = Vector2(49, 62)

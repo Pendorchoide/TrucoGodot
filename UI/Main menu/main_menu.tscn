@@ -1,0 +1,48 @@
+[gd_scene load_steps=2 format=3 uid="uid://ca0toy4x41q34"]
+
+[ext_resource type="Script" uid="uid://c6wygavlngu3j" path="res://UI/Main menu/MainMenu.cs" id="1_o5at2"]
+
+[node name="MainMenu" type="Node2D"]
+
+[node name="Main menu" type="Control" parent="." node_paths=PackedStringArray("_createRoom", "_joinRoom", "_quit")]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_o5at2")
+_createRoom = NodePath("ColorRect/VBoxContainer/Create Room")
+_joinRoom = NodePath("ColorRect/VBoxContainer/Join Room")
+_quit = NodePath("ColorRect/VBoxContainer/Quit")
+
+[node name="ColorRect" type="ColorRect" parent="Main menu"]
+layout_mode = 1
+offset_right = 562.0
+offset_bottom = 549.0
+color = Color(0.14459124, 0.25483447, 0.2239427, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Main menu/ColorRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -101.5
+offset_top = -91.25
+offset_right = 101.5
+offset_bottom = 91.25
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 11
+
+[node name="Create Room" type="Button" parent="Main menu/ColorRect/VBoxContainer"]
+layout_mode = 2
+text = "Crear sala"
+
+[node name="Join Room" type="Button" parent="Main menu/ColorRect/VBoxContainer"]
+layout_mode = 2
+text = "Unirse"
+
+[node name="Quit" type="Button" parent="Main menu/ColorRect/VBoxContainer"]
+layout_mode = 2
+text = "Salir"
