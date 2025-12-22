@@ -1,4 +1,6 @@
 using Godot;
+using TrucoProject.Net.Messages;
+using TrucoProject.Net.WebSocket;
 
 namespace TrucoProject.Net.Events.Handlers
 {
@@ -7,6 +9,8 @@ namespace TrucoProject.Net.Events.Handlers
             NetEventBus.Subscribe(NetEvent.Type.Connected, OnConnected);
             NetEventBus.Subscribe(NetEvent.Type.ConnectionFailed, OnConnectionFailed);
             NetEventBus.Subscribe(NetEvent.Type.Disconnected, OnDisconnected);
+            NetEventBus.Subscribe(NetEvent.Type.Ping, OnPing);
+            NetEventBus.Subscribe(NetEvent.Type.Ping, OnPong);
         }
 
         private void OnConnected(NetEvent evt) {
@@ -20,6 +24,15 @@ namespace TrucoProject.Net.Events.Handlers
         private void OnDisconnected(NetEvent evt) {
             // TODO: Show the reconnection interface, reconnect, etc.
             GD.Print("[NET] Desconectado del servidor");
+        }
+
+        private void OnPing (NetEvent evt) {
+            PongMessage msg = new PongMessage();
+            WebSocketClient.Instance.Send(msg);
+        }
+        private void OnPong (NetEvent evt) {
+            PingMessage msg = new PingMessage();
+            WebSocketClient.Instance.Send(msg);
         }
     }
 }

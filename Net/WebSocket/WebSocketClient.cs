@@ -26,7 +26,6 @@ namespace TrucoProject.Net.WebSocket
         private readonly byte[] _buffer = new byte[8192];
 
         public static WebSocketClient Instance { get; private set; }
-
         public override void _EnterTree() {
             Instance = this;
         }
@@ -141,10 +140,14 @@ namespace TrucoProject.Net.WebSocket
                 }
 
                 string json = Encoding.UTF8.GetString(_buffer, 0, result.Count);
-                HandleIncoming(json);
+                
+                NetEventBus.Emit(
+                    new NetEvent(NetEvent.Type.MessageReceived, json)
+                );
             }
         }
 
+        /*
         private void HandleIncoming(string json) {
             MessageBase msg;
 
@@ -171,6 +174,6 @@ namespace TrucoProject.Net.WebSocket
             if (msg is not ServerPingMessage && msg is not ServerPongMessage) {
                 NetEventBus.Emit(new NetEvent(NetEvent.Type.MessageReceived, msg));
             }
-        }
+        }*/
     }
 }

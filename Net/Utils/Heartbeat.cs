@@ -36,7 +36,7 @@ namespace TrucoProject.Net.Utils
                     }
 
                     // Send ping
-                    _client.Send(new ClientPingMessage());
+                    _client.Send(new PingMessage());
                     _waitingForPong = true;
                 }
             });

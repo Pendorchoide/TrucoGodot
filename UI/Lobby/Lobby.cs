@@ -12,7 +12,7 @@ public partial class Lobby : Node {
 
 	public override void _Ready() {
 		ConnectAndCreateRoom();
-		NetEventBus.Subscribe(NetEvent.Type.CreateRoomResult, OnCreatedRoom);
+		// NetEventBus.Subscribe(NetEvent.Type.CreateRoomResult, OnCreatedRoom);
 		_goBack.Pressed += () => OnGoBack();
 	}
 

@@ -31,7 +31,7 @@ namespace TrucoProject.Net.Events.Handlers
         }
 
         private void HandleCreateRoomResult(CreateRoomResultMessage msg) {
-            NetEventBus.Emit(new NetEvent(NetEvent.Type.CreateRoomResult, msg));
+            // NetEventBus.Emit(new NetEvent(NetEvent.Type.CreateRoomResult, msg));
         }
 
         /*
