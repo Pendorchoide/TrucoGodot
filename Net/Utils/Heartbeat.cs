@@ -2,20 +2,26 @@ using System.Threading.Tasks;
 using TrucoProject.Net.Messages;
 using TrucoProject.Net.Events;
 using Godot;
+using TrucoProject.Net.WebSocket;
 
 namespace TrucoProject.Net.Utils
 {
     public class Heartbeat {
-        private readonly WebSocket.WebSocketClient _client;
-        private readonly int _intervalSeconds;
+        private static Heartbeat _instance { get; set; }
+        public int _intervalSeconds { get; set; }
 
         private bool _running = true;
         private bool _waitingForPong = false;
 
-        public Heartbeat(WebSocket.WebSocketClient client, int intervalSeconds) {
-            _client = client;
-            _intervalSeconds = intervalSeconds;
+        public static Heartbeat GetInstance() {
+            if (_instance == null) {
+                _instance = new Heartbeat();
+            }
 
+            return _instance;
+        }
+
+        private Heartbeat() {
             StartLoop();
         }
 
@@ -35,8 +41,7 @@ namespace TrucoProject.Net.Utils
                         return;
                     }
 
-                    // Send ping
-                    _client.Send(new PingMessage());
+                    WebSocketClient.GetInstance().Send(new PingMessage());
                     _waitingForPong = true;
                 }
             });

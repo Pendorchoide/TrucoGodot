@@ -18,11 +18,10 @@ namespace TrucoProject.Net.Events
             CreateLobby,
             CreateLobbyOk,
             CreateLobbyErr,
-
             JoinLobby,
             JoinLobbyOk,
             JoinLobbyErr,
-
+            LeaveLobby,
             PlayerJoinLobby,
             PlayerLeaveLobby,
             LobbyNewOwner,

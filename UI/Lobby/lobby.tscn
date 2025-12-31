@@ -4,13 +4,13 @@
 
 [node name="Lobby" type="Node2D"]
 
-[node name="Lobby Menu" type="Control" parent="." node_paths=PackedStringArray("_roomId", "_goBack")]
+[node name="Lobby Menu" type="Control" parent="." node_paths=PackedStringArray("_lobbyId", "_goBack")]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("1_fk5tk")
-_roomId = NodePath("VBoxContainer/roomId")
+_lobbyId = NodePath("VBoxContainer/roomId")
 _goBack = NodePath("goBack")
 
 [node name="ColorRect" type="ColorRect" parent="Lobby Menu"]

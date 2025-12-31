@@ -6,16 +6,25 @@ using TrucoProject.Net.Utils;
 public sealed class MessageRouter {
 
     private readonly Dictionary<string, NetEvent.Type> _routes = new();
+    private static MessageRouter _instance { get; set; }
 
-    public MessageRouter() {
+    public static MessageRouter GetInstance() {
+        if (_instance == null) {
+            _instance = new MessageRouter();            
+        }
+
+        return _instance;
+    } 
+    
+    private MessageRouter() {
         NetEventBus.Subscribe(
             NetEvent.Type.MessageReceived,
             OnRawMessage
         );
     }
 
-    public void Register(string messageType, NetEvent.Type eventType) {
-        _routes[messageType] = eventType;
+    public void RegisterProtocol(string protocolKey, NetEvent.Type eventType){
+        _routes[protocolKey] = eventType;
     }
 
     private void OnRawMessage(NetEvent evt) {

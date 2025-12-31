@@ -16,7 +16,7 @@ config/features=PackedStringArray("4.5", "C#", "Mobile")
 
 [autoload]
 
-WebSocketClient="*res://Net/WebSocket/WebSocketClient.cs"
+WebSocketClient="res://Net/WebSocket/WebSocketClient.cs"
 GameNet="*res://Game/GameNet.cs"
 
 [display]

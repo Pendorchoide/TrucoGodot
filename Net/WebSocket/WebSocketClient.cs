@@ -17,20 +17,26 @@ namespace TrucoProject.Net.WebSocket
         public WebSocketConfig Config { get; private set; }
         public WebSocketState State { get; private set; } = WebSocketState.Disconnected;
 
-        private Heartbeat _heartbeat;
-
         private ClientWebSocket _socket;
         private CancellationTokenSource _cts;
 
         private readonly Queue<string> _sendQueue = new();
         private readonly byte[] _buffer = new byte[8192];
 
+        private static WebSocketClient _instance { get; set; }
         public static WebSocketClient Instance { get; private set; }
         public override void _EnterTree() {
             Instance = this;
         }
 
-        public WebSocketClient() {
+        public static WebSocketClient GetInstance() {
+            if (_instance == null) {
+                _instance = new WebSocketClient();
+            }
+
+            return _instance;
+        }
+        private WebSocketClient() {
             Instance = this;
         }
 
@@ -60,7 +66,7 @@ namespace TrucoProject.Net.WebSocket
 
             NetEventBus.Emit(new NetEvent(NetEvent.Type.Connected));
 
-            _heartbeat = new Heartbeat(this, config.HeartbeatInterval);
+            Heartbeat.GetInstance()._intervalSeconds = config.HeartbeatInterval;
 
             // Start receiving loop
             _ = Task.Run(ReceiveLoop);
@@ -147,33 +153,9 @@ namespace TrucoProject.Net.WebSocket
             }
         }
 
-        /*
-        private void HandleIncoming(string json) {
-            MessageBase msg;
-
-            try {
-                msg = MessageParser.Parse(json);
-            }
-            catch (Exception e) {
-                NetLogger.Error($"[WS] Invalid message: {e.Message}");
-                return;
-            }
-
-            // Built-in handling
-            switch (msg) {
-                case ServerPingMessage:
-                    Send(new ClientPongMessage());
-                break;
-
-                case ServerPongMessage:
-                    _heartbeat.OnPong();                
-                break;
-            }
-
-            // Forward to game
-            if (msg is not ServerPingMessage && msg is not ServerPongMessage) {
-                NetEventBus.Emit(new NetEvent(NetEvent.Type.MessageReceived, msg));
-            }
-        }*/
+        internal void Send(object payload)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -1,5 +1,6 @@
 using Godot;
 using TrucoProject.Net.Messages;
+using TrucoProject.Net.Utils;
 using TrucoProject.Net.WebSocket;
 
 namespace TrucoProject.Net.Events.Handlers
@@ -10,7 +11,7 @@ namespace TrucoProject.Net.Events.Handlers
             NetEventBus.Subscribe(NetEvent.Type.ConnectionFailed, OnConnectionFailed);
             NetEventBus.Subscribe(NetEvent.Type.Disconnected, OnDisconnected);
             NetEventBus.Subscribe(NetEvent.Type.Ping, OnPing);
-            NetEventBus.Subscribe(NetEvent.Type.Ping, OnPong);
+            NetEventBus.Subscribe(NetEvent.Type.Pong, OnPong);
         }
 
         private void OnConnected(NetEvent evt) {
@@ -28,11 +29,10 @@ namespace TrucoProject.Net.Events.Handlers
 
         private void OnPing (NetEvent evt) {
             PongMessage msg = new PongMessage();
-            WebSocketClient.Instance.Send(msg);
+            WebSocketClient.GetInstance().Send(msg);
         }
         private void OnPong (NetEvent evt) {
-            PingMessage msg = new PingMessage();
-            WebSocketClient.Instance.Send(msg);
+            Heartbeat.GetInstance().OnPong();
         }
     }
 }

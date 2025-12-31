@@ -6,38 +6,46 @@ using TrucoProject.Net.WebSocket;
 
 public partial class Lobby : Node {
 	[Export]
-    private Label _roomId;
+	private Label _lobbyId;
 	[Export] 
 	private Button _goBack;
 
 	public override void _Ready() {
-		ConnectAndCreateRoom();
-		// NetEventBus.Subscribe(NetEvent.Type.CreateRoomResult, OnCreatedRoom);
+		ConnectAndCreateLobby();
+
+		NetEventBus.Subscribe(NetEvent.Type.CreateLobbyOk, OnCreateLobbyOk);
 		_goBack.Pressed += () => OnGoBack();
 	}
 
 	private async void OnGoBack() {
 		GetTree().ChangeSceneToFile("res://UI/Main menu/main_menu.tscn");
-        await WebSocketClient.Instance.DisconnectAsync();
-    }
+		await WebSocketClient.GetInstance().DisconnectAsync();
+		NetEventBus.Unsubscribe(NetEvent.Type.CreateLobbyOk, OnCreateLobbyOk);
+	}
 
-	private static async void ConnectAndCreateRoom() {
-        try {
-            await WebSocketClient.Instance.ConnectAsync(new WebSocketConfig("ws://127.0.0.1:8080"));
-			WebSocketClient.Instance.Send(new createRoomMessage());
-        }
-        catch (Exception e) {
-            GD.PrintErr(e.Message);
-        }
-    }
+	private static async void ConnectAndCreateLobby() {
+		try {
+			await WebSocketClient.GetInstance()
+				.ConnectAsync(new WebSocketConfig("ws://127.0.0.1:8080/?at=1"));
+			
+			NetEventBus.Emit(new NetEvent(
+				NetEvent.Type.CreateLobby,
+				new CreateLobbyMessage(2)
+			));
+		}
 
-	private void OnCreatedRoom(NetEvent evt) {
-		if (evt.Payload is not CreateRoomResultMessage msg) return;
+		catch (Exception e) {
+			GD.PrintErr(e.Message);
+		}
+	}
 
-		CallDeferred(nameof(UpdateRoomId), msg.Rooom);
-    }
+	private void OnCreateLobbyOk(NetEvent evt) {
+		if (evt.Payload is not CreateLobbyOkMessage msg) return;
 
-	 private void UpdateRoomId(string id) {
-        _roomId.Text = "Codigo: " + id;
-    }
+		CallDeferred(nameof(UpdateLobbyId), msg.LobbyId);
+	}
+
+	 private void UpdateLobbyId(string id) {
+		_lobbyId.Text = "Codigo: " + id;
+	}
 }
