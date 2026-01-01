@@ -1,38 +1,43 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
-public partial class Mazo : Node2D
+public partial class Deck : Node2D
 {
 
-	Card[] cartas = new Card[40]; // Array para almacenar las 40 cartas del mazo
-
+	[Export] public PackedScene cardScene;
+	public List<Card> cards = new(); // Array para almacenar las 40 cartas del mazo
+	
 
 
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		InitializeDeck();
+		
 	}
 
-	private void InitializeDeck()
+
+	public void InitializeDeck()
 	{
-		for (int i = 0; i < 40; i++)
+		int[] values = { 1,2,3,4,5,6,7,10,11,12 }; // Valores de las cartas en el truco
+		string[] suits = { "Oro", "Copa", "Espada", "Basto" };
+
+
+		foreach (var suit in suits)
 		{
-			//cartas[i] = new Card(i % 10 + 1, GetSuit(i)); // Asigna valor y palo a cada carta
+			foreach (var value in values)
+			{
+				Card card = cardScene.Instantiate<Card>();
+				card.Init(suit, value);
+				card.Visible = true;
+
+				cards.Add(card);
+				AddChild(card);
+			}
 		}
 	}
 
-	private string GetSuit(int index)
-	{
-		if (index < 10)
-			return "Oro";
-		else if (index < 20)
-			return "Copa";
-		else if (index < 30)
-			return "Espada";
-		else
-			return "Basto";
-	}
+
 
 }

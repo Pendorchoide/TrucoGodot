@@ -33,6 +33,9 @@ project/assembly_name="TrucoProject"
 
 card=""
 table=""
+deck=""
+croupierManager=""
+playerHand=""
 
 [rendering]
 

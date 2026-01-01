@@ -1,10 +1,16 @@
-[gd_scene load_steps=9 format=3 uid="uid://c1xl3vv0a2b1d"]
+[gd_scene load_steps=15 format=3 uid="uid://c1xl3vv0a2b1d"]
 
 [ext_resource type="PackedScene" uid="uid://d0m5wsp1ifmyl" path="res://Mesa_Scn/Scenes/card.tscn" id="1_ksok5"]
 [ext_resource type="Texture2D" uid="uid://b47kxplyndtdn" path="res://Mesa_Scn/Assets/Sprites/Place Holders/Fondo_Galaxia_place_holder.png" id="1_nmlsn"]
 [ext_resource type="Script" uid="uid://00likeaj7i5r" path="res://Mesa_Scn/Scripts/CardManager.cs" id="2_4kg7n"]
 [ext_resource type="PackedScene" uid="uid://bnwqy3xi40xaj" path="res://Mesa_Scn/Scenes/table.tscn" id="2_w5sy0"]
+[ext_resource type="Script" uid="uid://1fomw41us1jp" path="res://Mesa_Scn/Scripts/PlayerHand.cs" id="4_7jldp"]
 [ext_resource type="Texture2D" uid="uid://dyuv54l2p4byg" path="res://Mesa_Scn/Assets/Sprites/Place Holders/UI_place_holder.png" id="4_w5sy0"]
+[ext_resource type="Script" uid="uid://cggj4jcifxjes" path="res://Mesa_Scn/Scripts/OpponentHand.cs" id="6_0ip4a"]
+[ext_resource type="Script" uid="uid://d0mflg5mpg8gk" path="res://Mesa_Scn/Scripts/CroupierManager.cs" id="7_0ip4a"]
+[ext_resource type="PackedScene" uid="uid://dxhq3hppye85i" path="res://Mesa_Scn/Scenes/deck.tscn" id="8_7jldp"]
+[ext_resource type="Script" uid="uid://brdof13l2q5lt" path="res://Mesa_Scn/Scripts/DebugHelper.cs" id="10_7jldp"]
+[ext_resource type="Texture2D" uid="uid://cpo3f3hbf5d7x" path="res://Mesa_Scn/Assets/Sprites/mazo_spritesheet.png" id="11_u6ypb"]
 
 [sub_resource type="Animation" id="Animation_2phd2"]
 resource_name = "Mesa_place_holder"
@@ -48,7 +54,7 @@ _data = {
 [node name="Background" type="Node2D" parent="."]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Background"]
-root_node = NodePath("../Table/TableSpr")
+root_node = NodePath("../../TableManager/Table/TableSpr")
 libraries = {
 &"": SubResource("AnimationLibrary_vg1iy")
 }
@@ -57,39 +63,87 @@ libraries = {
 position = Vector2(144, 256)
 texture = ExtResource("1_nmlsn")
 
-[node name="Table" parent="Background" instance=ExtResource("2_w5sy0")]
+[node name="TableManager" type="Node2D" parent="."]
+
+[node name="Table" parent="TableManager" instance=ExtResource("2_w5sy0")]
+visibility_layer = 2
 position = Vector2(144, 258)
 
 [node name="CardManager" type="Node2D" parent="."]
 script = ExtResource("2_4kg7n")
 
-[node name="Card" parent="CardManager" instance=ExtResource("1_ksok5")]
-position = Vector2(68.99999, 437.00003)
-rotation = -0.08726646
-scale = Vector2(1.5, 1.5)
-suit = "espada"
-value = 1
+[node name="PlayerHand" type="Node2D" parent="CardManager" node_paths=PackedStringArray("Card1PlaceHolder", "Card2PlaceHolder", "Card3PlaceHolder") groups=["playerHand"]]
+visibility_layer = 4
+script = ExtResource("4_7jldp")
+Card1PlaceHolder = NodePath("../../Card1PH")
+Card2PlaceHolder = NodePath("../../Card2PH")
+Card3PlaceHolder = NodePath("../../Card3PH")
 
-[node name="Card2" parent="CardManager" instance=ExtResource("1_ksok5")]
-position = Vector2(142, 429)
-scale = Vector2(1.5, 1.5)
-suit = "basto"
-value = 1
-
-[node name="Card3" parent="CardManager" instance=ExtResource("1_ksok5")]
-position = Vector2(215.00003, 437.00006)
-rotation = 0.08726646
-scale = Vector2(1.5, 1.5)
-suit = "oro"
-value = 3
+[node name="OpponentHand" type="Node2D" parent="CardManager" groups=["opponentHand"]]
+script = ExtResource("6_0ip4a")
 
 [node name="UI" type="Control" parent="."]
+visibility_layer = 512
+z_as_relative = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="UI" type="Sprite2D" parent="UI"]
+visibility_layer = 512
 z_index = 200
 position = Vector2(144, 256)
 texture = ExtResource("4_w5sy0")
+
+[node name="CroupierManager" type="Node2D" parent="." node_paths=PackedStringArray("deck", "playerHand", "oponentHand") groups=["croupierManager"]]
+script = ExtResource("7_0ip4a")
+deck = NodePath("../Deck")
+playerHand = NodePath("../CardManager/PlayerHand")
+oponentHand = NodePath("../CardManager/OpponentHand")
+
+[node name="Deck" parent="." groups=["deck"] instance=ExtResource("8_7jldp")]
+position = Vector2(-300, 0)
+cardScene = ExtResource("1_ksok5")
+
+[node name="DebugHelper" type="Node" parent="." node_paths=PackedStringArray("CroupierManager", "Deck", "PlayerHand", "OpponentHand")]
+script = ExtResource("10_7jldp")
+CroupierManager = NodePath("../CroupierManager")
+Deck = NodePath("../Deck")
+PlayerHand = NodePath("../CardManager/PlayerHand")
+OpponentHand = NodePath("../CardManager/OpponentHand")
+
+[node name="Card1PH" type="Node2D" parent="." groups=["card"]]
+visible = false
+position = Vector2(68.99999, 437.00003)
+rotation = -0.08726646
+scale = Vector2(1.5, 1.5)
+
+[node name="Sprite2D" type="Sprite2D" parent="Card1PH"]
+texture = ExtResource("11_u6ypb")
+region_enabled = true
+region_rect = Rect2(0, 0, 62, 95)
+region_filter_clip_enabled = true
+
+[node name="Card2PH" type="Node2D" parent="." groups=["card"]]
+visible = false
+position = Vector2(142, 429)
+scale = Vector2(1.5, 1.5)
+
+[node name="Sprite2D" type="Sprite2D" parent="Card2PH"]
+texture = ExtResource("11_u6ypb")
+region_enabled = true
+region_rect = Rect2(0, 0, 62, 95)
+region_filter_clip_enabled = true
+
+[node name="Card3PH" type="Node2D" parent="." groups=["card"]]
+visible = false
+position = Vector2(215.00003, 437.00006)
+rotation = 0.08726646
+scale = Vector2(1.5, 1.5)
+
+[node name="Sprite2D" type="Sprite2D" parent="Card3PH"]
+texture = ExtResource("11_u6ypb")
+region_enabled = true
+region_rect = Rect2(0, 0, 62, 95)
+region_filter_clip_enabled = true
