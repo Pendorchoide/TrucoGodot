@@ -1,13 +1,16 @@
 namespace TrucoProject.Net.Messages
 {
     public class LobbyNewOwnerMessage : MessageBase {
-        public string Owner {get; set;}
-        
+        public string NewOwner {get; set;}
+        public string LobbyId {get; set;}
+
         public LobbyNewOwnerMessage (
-            string owner
+            string newOwner,
+            string lobbyId
         ) {
-            Type = Protocol.ProtocolKeys.LobbyNewOwner;
-            Owner = owner; 
+            type = Protocol.ProtocolKeys.LobbyNewOwner;
+            NewOwner = newOwner;
+            LobbyId = lobbyId;
         }
     }
 }

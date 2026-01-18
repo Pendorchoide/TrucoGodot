@@ -33,8 +33,8 @@ public sealed class MessageRouter {
         var msg = MessageParser.Parse(raw);
         if (msg == null) return;
 
-        if (!_routes.TryGetValue(msg.Type, out var eventType)) {
-            NetLogger.Warn($"[Router] No route for {msg.Type}");
+        if (!_routes.TryGetValue(msg.type, out var eventType)) {
+            NetLogger.Warn($"[Router] No route for {msg.type}");
             return;
         }
 

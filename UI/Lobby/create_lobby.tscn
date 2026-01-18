@@ -1,0 +1,64 @@
+[gd_scene load_steps=2 format=3 uid="uid://nb45jhtqx544"]
+
+[ext_resource type="Script" uid="uid://clq3cputeg3fq" path="res://UI/Lobby/scripts/CreateLobby.cs" id="1_sb72n"]
+
+[node name="CreateLobby" type="Node2D"]
+
+[node name="Create Lobby Menu" type="Control" parent="." node_paths=PackedStringArray("_maxPlayers", "_createButton")]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_sb72n")
+_maxPlayers = NodePath("ColorRect/Label/Max Players")
+_createButton = NodePath("Button")
+metadata/_edit_use_anchors_ = true
+
+[node name="ColorRect" type="ColorRect" parent="Create Lobby Menu"]
+layout_mode = 0
+offset_left = -16.0
+offset_top = -7.0
+offset_right = 562.0
+offset_bottom = 571.0
+color = Color(0.103185214, 0.36509183, 0.44894588, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="Create Lobby Menu/ColorRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -45.0
+offset_top = -11.5
+offset_right = 45.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Cantidad Jugadores:"
+metadata/_edit_use_anchors_ = true
+
+[node name="Max Players" type="LineEdit" parent="Create Lobby Menu/ColorRect/Label"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -95.5
+offset_top = 14.5
+offset_right = 95.5
+offset_bottom = 45.5
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Button" type="Button" parent="Create Lobby Menu"]
+layout_mode = 0
+offset_left = 218.0
+offset_top = 341.0
+offset_right = 328.0
+offset_bottom = 372.0
+text = "Crear"
+metadata/_edit_use_anchors_ = true

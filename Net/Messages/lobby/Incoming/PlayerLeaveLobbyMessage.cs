@@ -9,7 +9,7 @@ namespace TrucoProject.Net.Messages
             string playerId,
             string lobbyId
         ) {
-            Type = Protocol.ProtocolKeys.PlayerLeaveLobby;
+            type = Protocol.ProtocolKeys.PlayerLeaveLobby;
             PlayerId = playerId; 
             LobbyId = lobbyId;
         }

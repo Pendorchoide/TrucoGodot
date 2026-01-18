@@ -5,7 +5,7 @@ namespace TrucoProject.Net.Messages
         public string Message {get; set;}
         
         public CreateLobbyErrMessage(string message) {
-            Type = Protocol.ProtocolKeys.CreateLobbyError;
+            type = Protocol.ProtocolKeys.CreateLobbyError;
             Message = message;
         }
     }

@@ -6,10 +6,9 @@ namespace TrucoProject.Net.Events
             Connected,
             ConnectionFailed,
             Disconnected,
-
             // Raw
             MessageReceived,
-
+            ConnectionOk, // The server sends user data when a successful connection is established
             // Heartbeat
             Ping,
             Pong,
@@ -25,7 +24,10 @@ namespace TrucoProject.Net.Events
             PlayerJoinLobby,
             PlayerLeaveLobby,
             LobbyNewOwner,
-            LobbyReady
+            LobbyReady, 
+
+            // Game 
+            GameStarted
         }
 
         public Type EventType { get; }

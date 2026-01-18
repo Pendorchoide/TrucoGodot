@@ -21,6 +21,9 @@ namespace TrucoProject.Net.Messages
                 string type = typeProp.GetString() ?? "";
 
                 return type switch {
+                    // ======= CONNECTION ======= 
+                    ProtocolKeys.ConnectionOk => JsonSerializer.Deserialize<ConnectionOkMessage>(root.GetRawText(), options),
+
                     // ======= HEARTBEAT ======= 
                     ProtocolKeys.Ping => JsonSerializer.Deserialize<ServerPingMessage>(root.GetRawText(), options),
                     ProtocolKeys.Pong => JsonSerializer.Deserialize<ServerPongMessage>(root.GetRawText(), options),
@@ -30,9 +33,12 @@ namespace TrucoProject.Net.Messages
                     ProtocolKeys.CreateLobbyOk => JsonSerializer.Deserialize<CreateLobbyOkMessage>(root.GetRawText(), options),
                     ProtocolKeys.JoinLobbyError => JsonSerializer.Deserialize<JoinLobbyErrMessage>(root.GetRawText(), options),
                     ProtocolKeys.JoinLobbyOk => JsonSerializer.Deserialize<JoinLobbyOkMessage>(root.GetRawText(), options),
-                    ProtocolKeys.PlayerJoinLobby => JsonSerializer.Deserialize<PlayerJoinLoobyMessage>(root.GetRawText(), options),
+                    ProtocolKeys.PlayerJoinLobby => JsonSerializer.Deserialize<PlayerJoinLobbyMessage>(root.GetRawText(), options),
                     ProtocolKeys.PlayerLeaveLobby => JsonSerializer.Deserialize<PlayerLeaveLoobyMessage>(root.GetRawText(), options),
                     ProtocolKeys.LobbyNewOwner => JsonSerializer.Deserialize<LobbyNewOwnerMessage>(root.GetRawText(), options),
+
+                    // ======= GAME ======= 
+                    ProtocolKeys.GameStarted => JsonSerializer.Deserialize<GameStartedMessage>(root.GetRawText(), options),
 
                     _ => new GenericMessage(type, raw)
                 };

@@ -1,10 +1,10 @@
 [gd_scene load_steps=2 format=3 uid="uid://dotlwyptp3vjw"]
 
-[ext_resource type="Script" uid="uid://crnoh4coj38fa" path="res://UI/Lobby/Lobby.cs" id="1_fk5tk"]
+[ext_resource type="Script" uid="uid://yynjcnowycme" path="res://UI/Lobby/scripts/LobbyScene.cs" id="1_fk5tk"]
 
 [node name="Lobby" type="Node2D"]
 
-[node name="Lobby Menu" type="Control" parent="." node_paths=PackedStringArray("_lobbyId", "_goBack")]
+[node name="Lobby Menu" type="Control" parent="." node_paths=PackedStringArray("_lobbyId", "_goBack", "_startGame", "_playersList")]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
@@ -12,6 +12,8 @@ offset_bottom = 40.0
 script = ExtResource("1_fk5tk")
 _lobbyId = NodePath("VBoxContainer/roomId")
 _goBack = NodePath("goBack")
+_startGame = NodePath("startGame")
+_playersList = NodePath("VBoxContainer/playerList")
 
 [node name="ColorRect" type="ColorRect" parent="Lobby Menu"]
 layout_mode = 1
@@ -34,6 +36,10 @@ layout_mode = 2
 size_flags_horizontal = 4
 text = "Codigo: "
 
+[node name="playerList" type="ItemList" parent="Lobby Menu/VBoxContainer"]
+custom_minimum_size = Vector2(0, 400)
+layout_mode = 2
+
 [node name="goBack" type="Button" parent="Lobby Menu"]
 layout_mode = 1
 anchors_preset = 8
@@ -41,10 +47,20 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 231.0
-offset_top = 469.0
-offset_right = 288.0
-offset_bottom = 500.0
+offset_left = 456.0
+offset_top = 477.0
+offset_right = 513.0
+offset_bottom = 508.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "Volver"
+text = "Salir"
+
+[node name="startGame" type="Button" parent="Lobby Menu"]
+visible = false
+layout_mode = 0
+offset_left = 232.0
+offset_top = 438.0
+offset_right = 336.0
+offset_bottom = 469.0
+disabled = true
+text = "Iniciar"

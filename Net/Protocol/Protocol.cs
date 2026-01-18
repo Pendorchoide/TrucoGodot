@@ -19,25 +19,31 @@ namespace TrucoProject.Net.Protocol
         // =====================
         // Heartbeat
         // =====================
+        public const string ConnectionOk = "connection_ok";
+
         public const string Ping = "ping";
         public const string Pong = "pong";
 
         // =====================
         // Lobby lifecycle
         // =====================
+
         public const string CreateLobby      = "create_lobby";
         public const string CreateLobbyOk    = "create_lobby_ok";
         public const string CreateLobbyError = "create_lobby_err";
-
-        public const string JoinLobby      = "join_lobby";
-        public const string JoinLobbyOk    = "join_lobby_ok";
-        public const string JoinLobbyError = "join_lobby_err";
-
+        public const string JoinLobby        = "join_lobby";
+        public const string JoinLobbyOk      = "join_lobby_ok";
+        public const string JoinLobbyError   = "join_lobby_err";
         public const string LeaveLobby       = "leave_lobby";
         public const string PlayerJoinLobby  = "player_join_lobby";
         public const string PlayerLeaveLobby = "player_leave_lobby";
+        public const string LobbyNewOwner    = "lobby_new_owner";
+        public const string LobbyReady       = "lobby_ready";
+        
+        // =====================
+        // Game lifecycle
+        // =====================
 
-        public const string LobbyNewOwner = "lobby_new_owner";
-        public const string LobbyReady    = "lobby_ready";
+        public const string GameStarted = "game_started";
     }
 }

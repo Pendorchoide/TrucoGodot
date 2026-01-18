@@ -24,13 +24,19 @@ namespace TrucoProject.Net.Events.Handlers
         }
         private void OnCreateLobbyErr (NetEvent evt) {}
         private void OnCreateLobbyOk (NetEvent evt) {}
-        private void OnJoinLobby (NetEvent evt) {}
+        private void OnJoinLobby (NetEvent evt) {
+            WebSocketClient.GetInstance().Send((JoinLobbyMessage) evt.Payload);
+        }
         private void OnJoinLobbyErr (NetEvent evt) {}
         private void OnJoinLobbyOk (NetEvent evt) {}
         private void OnPlayerJoinLobby (NetEvent evt) {}
-        private void OnLeaveLobby (NetEvent evt) {}
+        private void OnLeaveLobby (NetEvent evt) {
+            WebSocketClient.GetInstance().Send((LeaveLobbyMessage) evt.Payload);
+        }
         private void OnPlayerLeaveLobby (NetEvent evt) {}
         private void OnLobbyNewOwner (NetEvent evt) {}
-        private void OnLobbyReady (NetEvent evt) {}
+        private void OnLobbyReady (NetEvent evt) {
+            WebSocketClient.GetInstance().Send((LobbyReadyMessage) evt.Payload);
+        }
     }
 }

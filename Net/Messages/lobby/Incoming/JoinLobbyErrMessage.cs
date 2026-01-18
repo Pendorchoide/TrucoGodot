@@ -4,7 +4,7 @@ namespace TrucoProject.Net.Messages
         public string Message {get; set;}
         
         public JoinLobbyErrMessage(string message) {
-            Type = Protocol.ProtocolKeys.JoinLobbyError;
+            type = Protocol.ProtocolKeys.JoinLobbyError;
             Message = message;
         }
     }

@@ -1,16 +1,16 @@
 namespace TrucoProject.Net.Messages
 {
-    public class PlayerJoinLoobyMessage : MessageBase {
+    public class PlayerJoinLobbyMessage : MessageBase {
         public string PlayerId {get; set;}
         
         public string LobbyId {get; set;}
         public string PlayerName {get; set;}
-        public PlayerJoinLoobyMessage (
+        public PlayerJoinLobbyMessage (
             string playerId,
             string lobbyId,
             string playerName
         ) {
-            Type = Protocol.ProtocolKeys.PlayerJoinLobby;
+            type = Protocol.ProtocolKeys.PlayerJoinLobby;
             PlayerId = playerId; 
             LobbyId = lobbyId;
             PlayerName = playerName;

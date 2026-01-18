@@ -1,13 +1,11 @@
 namespace TrucoProject.Net.Messages
 {
-    public class LoobyReadyMessage : MessageBase {
-        public string LobbyId {get; set;}
+    public class LobbyReadyMessage : MessageBase {
+        public string lobbyId {get; set;}
         
-        public LoobyReadyMessage (
-            string lobbyId
-        ) {
-            Type = Protocol.ProtocolKeys.LobbyReady;
-            LobbyId = LobbyId; 
+        public LobbyReadyMessage (string _lobbyId) {
+            type = Protocol.ProtocolKeys.LobbyReady;
+            lobbyId = _lobbyId; 
         }
     }
 }

@@ -6,13 +6,13 @@ namespace TrucoProject.Net.Messages
     public class CreateLobbyOkMessage : MessageBase {
         public string LobbyId { get; set; }
         public string Owner { get; set; }
-        public int MaxPlayers { get; set; }
+        public byte MaxPlayers { get; set; }
 
         public List<string> Players { get; set; } = new();
 
         public CreateLobbyOkMessage()
         {
-            Type = ProtocolKeys.CreateLobbyOk;
+            type = ProtocolKeys.CreateLobbyOk;
         }
     }
 }

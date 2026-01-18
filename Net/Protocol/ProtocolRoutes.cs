@@ -5,6 +5,9 @@ public static class ProtocolRoutes
 {
     public static void RegisterAll(MessageRouter router)
     {
+        // Connection
+        router.RegisterProtocol(ProtocolKeys.ConnectionOk, NetEvent.Type.ConnectionOk);
+
         // Heartbeat
         router.RegisterProtocol(ProtocolKeys.Ping, NetEvent.Type.Ping);
         router.RegisterProtocol(ProtocolKeys.Pong, NetEvent.Type.Pong);
@@ -18,5 +21,8 @@ public static class ProtocolRoutes
         router.RegisterProtocol(ProtocolKeys.PlayerLeaveLobby, NetEvent.Type.PlayerLeaveLobby);
         router.RegisterProtocol(ProtocolKeys.LobbyNewOwner, NetEvent.Type.LobbyNewOwner);
         router.RegisterProtocol(ProtocolKeys.LobbyReady, NetEvent.Type.LobbyReady);
+ 
+        // Game 
+        router.RegisterProtocol(ProtocolKeys.GameStarted, NetEvent.Type.GameStarted);
     }
 }

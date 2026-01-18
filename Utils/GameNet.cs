@@ -4,7 +4,6 @@ using TrucoProject.Net.WebSocket;
 
 public partial class GameNet : Node {
     private ConnectionEventsHandler _connectionHandler;
-
     private LobbyEventsHandler _lobbyHandler;
     private GameEventsHandler _gameHandler;
 

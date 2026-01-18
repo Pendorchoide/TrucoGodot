@@ -1,9 +1,9 @@
 namespace TrucoProject.Net.Messages {
     public class CreateLobbyMessage : MessageBase {
-        public int MaxPlayers {get; set; }  
+        public int maxPlayers {get; set; }  
         public CreateLobbyMessage(int maxPlayer) {
-            Type = Protocol.ProtocolKeys.CreateLobby;
-            MaxPlayers = maxPlayer;
+            type = Protocol.ProtocolKeys.CreateLobby;
+            maxPlayers = maxPlayer;
         }
     }
 }

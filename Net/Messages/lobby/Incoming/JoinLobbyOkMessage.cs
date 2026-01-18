@@ -1,22 +1,15 @@
+using System.Collections.Generic;
+
 namespace TrucoProject.Net.Messages
 {
     public class JoinLobbyOkMessage: MessageBase {
-        public string LobbyId {get; set;}
-        public string Owner {get; set;}
-        public int MaxPlayers {get; set;}
-        public string Players {get; set;}
+        public string LobbyId { get; set; }
+        public string Owner { get; set; }
+        public byte MaxPlayers { get; set; }
+        public List<string> Players { get; set; } = new();
         
-        public JoinLobbyOkMessage(
-            string lobbyId,
-            string owner, 
-            int maxPlayers, 
-            string players
-        ) {
-            Type = Protocol.ProtocolKeys.JoinLobbyOk;
-            LobbyId = lobbyId;
-            Owner = owner; 
-            MaxPlayers = maxPlayers; 
-            Players = players;
+        public JoinLobbyOkMessage() {
+            type = Protocol.ProtocolKeys.JoinLobbyOk;
         }
     }
 }
