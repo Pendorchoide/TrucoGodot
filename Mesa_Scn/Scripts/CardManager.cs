@@ -67,8 +67,8 @@ public partial class CardManager : Node2D
 						//draggedCard.GetParent().MoveChild(draggedCard, draggedCard.GetParent().GetChildCount() - 1); //Mueve la carta al final de la lista de hijos para que se renderice encima de las demas
 						//draggedCard.StartRotationToZero(); //Inicia el efecto de rotacion a cero al comenzar a arrastrar
 						draggedCard.Rotation = 0; //Establece la rotacion a cero al comenzar a arrastrar
-						draggedCard.StartShaking();      //Inicia el efecto de sacudida al comenzar a arrastrar
-						draggedCard.StartShrink();        //Inicia el efecto de encogimiento al comenzar a arrastrar
+						draggedCard.cardVisuals.StartShaking(draggedCard);      //Inicia el efecto de sacudida al comenzar a arrastrar
+						draggedCard.cardVisuals.StartShrink(draggedCard);        //Inicia el efecto de encogimiento al comenzar a arrastrar
 					}
 					//GD.Print("Click Izquierdo");
 						
@@ -94,10 +94,10 @@ public partial class CardManager : Node2D
 					{
 						if (!draggedCard.isBeingDragged)
 						{
-							draggedCard.StartReturnToOriginalRotation(); //Inicia el efecto de volver a la rotacion original al soltar
+							draggedCard.cardVisuals.StartReturnToOriginalRotation(draggedCard); //Inicia el efecto de volver a la rotacion original al soltar
 							draggedCard.hovered = false; //Desactiva el hover al soltar la carta
-							draggedCard.StartReturnToOrigin();  //Cuando se suelta el boton del mouse, la carta vuelve a su posicion original
-							draggedCard.StartResetScale();      //Inicia el efecto de volver a la escala original al soltar
+							draggedCard.cardVisuals.StartReturnToOrigin(draggedCard);  //Cuando se suelta el boton del mouse, la carta vuelve a su posicion original
+							draggedCard.cardVisuals.StartResetScale(draggedCard);      //Inicia el efecto de volver a la escala original al soltar
 							//draggedCard.StartReturnToOriginalRotation(); //Inicia el efecto de volver a la rotacion original al soltar
 							draggedCard.Rotation = draggedCard.originalRotation; //Establece la rotacion a la original al soltar
 							//draggedCard.StartShaking();      //Inicia el efecto de sacudida al soltar
@@ -120,9 +120,9 @@ private void PlaceCardOnTable(Card card, Table table)
 			card.isOnTable = true;
             table.playableSlotInTable[i] = card;
             card.Reparent(table);
-			
-			
-			card.StopAllEffects();
+
+
+			card.cardVisuals.StopAllEffects(card);
             card.hovered = false;
             card.isBeingDragged = false;
 
@@ -140,8 +140,8 @@ private void PlaceCardOnTable(Card card, Table table)
                 _ => table.Slot1Position
             };
 
-            card.StartGoToPosition(table.ToLocal(slotPos));
-            card.StartPop();
+            card.cardVisuals.StartGoToPosition(card, table.ToLocal(slotPos));
+            card.cardVisuals.StartPop(card);
             card.SetZIndex(0);
             return;
         }
@@ -259,7 +259,7 @@ private void UpdateHover()
 	{
 		currentHoveredCard = card;
 		card.hovered = true;
-		card.StartHoverEffect();
+		card.cardVisuals.StartHoverEffect(card);
 
 		hoverZCounter++;
 		card.SetZIndex(hoverZCounter);
@@ -269,9 +269,9 @@ private void UpdateHover()
 	{
 		if (currentHoveredCard == null)
 			return;
-		currentHoveredCard.StopHover();
+		currentHoveredCard.cardVisuals.StopHover(currentHoveredCard);
 		currentHoveredCard.hovered = false;
-		currentHoveredCard.StartResetScale();
+		currentHoveredCard.cardVisuals.StartResetScale(currentHoveredCard);
 		currentHoveredCard = null;
 		
 	}
@@ -361,39 +361,6 @@ private void UpdateHover()
 		}
 		return null;
 	}
-
-	/*private Card GetTopPriorityCard(Godot.Collections.Array<Card> cards)		//Obtiene la carta con mayor prioridad (ZIndex mas alto, y si empatan, la mas cercana al mouse)
-	{
-    Card best = null;
-
-    foreach (var card in cards)
-    {
-        if (best == null)
-        {
-            best = card;
-            continue;
-        }
-
-        // Prioridad por ZIndex
-        if (card.ZIndex > best.ZIndex)
-        {
-            best = card;
-        }
-        // Si empatan, la más cercana al mouse
-        else if (card.ZIndex == best.ZIndex)
-        {
-            float d1 = card.GlobalPosition.DistanceTo(GetGlobalMousePosition());
-            float d2 = best.GlobalPosition.DistanceTo(GetGlobalMousePosition());
-
-            if (d1 < d2)
-                best = card;
-        }
-    }
-
-    return best;
-	}
-*/
-
 
 }
 

@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://d0m5wsp1ifmyl"]
+[gd_scene load_steps=5 format=3 uid="uid://d0m5wsp1ifmyl"]
 
 [ext_resource type="Texture2D" uid="uid://cpo3f3hbf5d7x" path="res://Mesa_Scn/Assets/Sprites/mazo_spritesheet.png" id="1_0qqmn"]
 [ext_resource type="Script" uid="uid://dsy8id882fbq5" path="res://Mesa_Scn/Scripts/Card.cs" id="1_wf8id"]
+[ext_resource type="Script" uid="uid://ddxuwirgo5pg4" path="res://Mesa_Scn/Scripts/CardVisuals.cs" id="3_qvnav"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rjlel"]
 size = Vector2(62, 96)
@@ -19,3 +20,6 @@ region_filter_clip_enabled = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("RectangleShape2D_rjlel")
+
+[node name="CardVisuals" type="Node" parent="."]
+script = ExtResource("3_qvnav")
