@@ -1,0 +1,73 @@
+[gd_scene load_steps=2 format=3 uid="uid://cmn7dh7undvi5"]
+
+[ext_resource type="Script" uid="uid://cys0v8ptf4ouv" path="res://Presentation/CreateMatch/CreateMatchView.cs" id="1_cmlq8"]
+
+[node name="CreateMatchView" type="Node2D"]
+
+[node name="Create Match Menu" type="Control" parent="." node_paths=PackedStringArray("_maxPlayers", "_create", "_back")]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_cmlq8")
+_maxPlayers = NodePath("ColorRect/Label/Max Players")
+_create = NodePath("Button")
+_back = NodePath("Button2")
+metadata/_edit_use_anchors_ = true
+
+[node name="ColorRect" type="ColorRect" parent="Create Match Menu"]
+layout_mode = 0
+offset_left = -16.0
+offset_top = -7.0
+offset_right = 562.0
+offset_bottom = 571.0
+color = Color(0.103185214, 0.36509183, 0.44894588, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="Label" type="Label" parent="Create Match Menu/ColorRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -45.0
+offset_top = -11.5
+offset_right = 45.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Cantidad Jugadores:"
+metadata/_edit_use_anchors_ = true
+
+[node name="Max Players" type="LineEdit" parent="Create Match Menu/ColorRect/Label"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -95.5
+offset_top = 14.5
+offset_right = 95.5
+offset_bottom = 45.5
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Button" type="Button" parent="Create Match Menu"]
+layout_mode = 0
+offset_left = 218.0
+offset_top = 341.0
+offset_right = 328.0
+offset_bottom = 372.0
+text = "Crear"
+metadata/_edit_use_anchors_ = true
+
+[node name="Button2" type="Button" parent="Create Match Menu"]
+layout_mode = 0
+offset_left = 457.0
+offset_top = 489.0
+offset_right = 514.0
+offset_bottom = 520.0
+text = "Volver"

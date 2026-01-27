@@ -1,0 +1,66 @@
+[gd_scene load_steps=2 format=3 uid="uid://dotlwyptp3vjw"]
+
+[ext_resource type="Script" uid="uid://ox7jm3t40e24" path="res://Presentation/Lobby/LobbyView.cs" id="1_wsvl2"]
+
+[node name="Lobby" type="Node2D"]
+
+[node name="Lobby Menu" type="Control" parent="." node_paths=PackedStringArray("_lobbyId", "_goBack", "_startGame", "_playersList")]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_wsvl2")
+_lobbyId = NodePath("VBoxContainer/roomId")
+_goBack = NodePath("goBack")
+_startGame = NodePath("startGame")
+_playersList = NodePath("VBoxContainer/playerList")
+
+[node name="ColorRect" type="ColorRect" parent="Lobby Menu"]
+layout_mode = 1
+offset_right = 561.0
+offset_bottom = 561.0
+color = Color(0.33923516, 0.17212197, 0.18959823, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Lobby Menu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 522.0
+offset_bottom = 536.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="roomId" type="Label" parent="Lobby Menu/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Codigo: "
+
+[node name="playerList" type="ItemList" parent="Lobby Menu/VBoxContainer"]
+custom_minimum_size = Vector2(0, 400)
+layout_mode = 2
+
+[node name="goBack" type="Button" parent="Lobby Menu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 456.0
+offset_top = 477.0
+offset_right = 513.0
+offset_bottom = 508.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Salir"
+
+[node name="startGame" type="Button" parent="Lobby Menu"]
+visible = false
+layout_mode = 0
+offset_left = 232.0
+offset_top = 438.0
+offset_right = 336.0
+offset_bottom = 469.0
+disabled = true
+text = "Iniciar"

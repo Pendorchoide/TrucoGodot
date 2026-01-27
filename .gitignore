@@ -3,3 +3,4 @@
 /android/
 *.cs.uid
 .vscode
+global.json

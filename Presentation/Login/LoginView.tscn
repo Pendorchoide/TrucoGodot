@@ -1,0 +1,59 @@
+[gd_scene load_steps=2 format=3 uid="uid://ggtpnmw3i645"]
+
+[ext_resource type="Script" uid="uid://cfjacvekd5hl3" path="res://Presentation/Login/LoginView.cs" id="1_bmhpw"]
+
+[node name="Login" type="Node2D"]
+
+[node name="Login Menu" type="Control" parent="." node_paths=PackedStringArray("_userId", "_login")]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_bmhpw")
+_userId = NodePath("ColorRect/Label/Id input")
+_login = NodePath("Button")
+
+[node name="ColorRect" type="ColorRect" parent="Login Menu"]
+layout_mode = 0
+offset_left = -16.0
+offset_top = -7.0
+offset_right = 562.0
+offset_bottom = 571.0
+color = Color(0.41009036, 0.30891502, 0.1702694, 1)
+
+[node name="Label" type="Label" parent="Login Menu/ColorRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -45.0
+offset_top = -11.5
+offset_right = 45.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Ingresar ID:"
+
+[node name="Id input" type="LineEdit" parent="Login Menu/ColorRect/Label"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -95.5
+offset_top = 14.5
+offset_right = 95.5
+offset_bottom = 45.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Button" type="Button" parent="Login Menu"]
+layout_mode = 0
+offset_left = 218.0
+offset_top = 341.0
+offset_right = 328.0
+offset_bottom = 372.0
+text = "Iniciar sesión"
