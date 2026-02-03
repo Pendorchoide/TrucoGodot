@@ -13,7 +13,7 @@ public partial class GameBootstrap : Node
 	private void StartApplication() {
 		ServiceLocator
 			.Get<INavigationService>()
-			.NavigateToLogin();
+			.NavigateToGame("pichula al horno");
 	}
 
 	private void RegisterServices()
@@ -41,5 +41,6 @@ public partial class GameBootstrap : Node
 		ServiceLocator.Register(new JoinMatchViewModel(navigation));
 		ServiceLocator.Register(new LobbyViewModel(navigation));
 		ServiceLocator.Register(new GameViewModel(navigation));
+		
 	}
 }

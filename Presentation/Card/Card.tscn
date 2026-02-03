@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://cn7022yjkgryo"]
+
+[ext_resource type="Script" uid="uid://skpjn6sueicj" path="res://Presentation/Card/CardView.cs" id="1_83320"]
+[ext_resource type="Texture2D" uid="uid://bgsbsvd4va0xq" path="res://Assets/Sprites/1_de_espada_spr.png" id="1_afxff"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_byuar"]
+size = Vector2(62, 96)
+
+[node name="Card" type="Node2D" node_paths=PackedStringArray("_cardSprite", "_area2D")]
+scale = Vector2(3, 3)
+script = ExtResource("1_83320")
+_cardSprite = NodePath("Sprite2D")
+_area2D = NodePath("Area2D")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_afxff")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+z_index = 1
+shape = SubResource("RectangleShape2D_byuar")

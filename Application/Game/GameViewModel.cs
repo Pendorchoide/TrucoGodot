@@ -8,6 +8,12 @@ public class GameViewModel {
 
     private readonly INavigationService navigation;
 
+    public event Action<int, int, string> CardsRecived;
+
+
+
+
+
     public GameViewModel(INavigationService navigation) {
         this.navigation = navigation;
     }
@@ -21,6 +27,8 @@ public class GameViewModel {
 
         Game = new Game(nav.Payload);
         GameUpdated?.Invoke(); // 🔑 el VM notifica
+        CardsRecived?.Invoke(1,1,"Oro");
+        
     }
 
     // ───────────── Net subscriptions ─────────────
@@ -29,4 +37,12 @@ public class GameViewModel {
 
     // ───────────── Handlers ─────────────
     // ...
+
+        private void CreateCard(int rank, int value, string suit) {
+        Game.Card = new Card(rank, value, suit);
+
+
+        
+    }
+
 }

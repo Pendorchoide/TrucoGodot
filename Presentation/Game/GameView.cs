@@ -3,12 +3,17 @@ using Godot;
 namespace TrucoProject.Presentation {
 	public partial class GameView : ViewBase {
 		[Export] private Label _gameId;
+
+		CardView _cardView;
 		private GameViewModel vm;
 
 		public override void _Ready() {
 			vm = ServiceLocator.Get<GameViewModel>();
 
 			vm.GameUpdated += OnGameUpdated;
+
+			vm.CardsRecived += InstantiateCardView;
+
 			vm.EnterGame();
 		}
 
@@ -28,6 +33,15 @@ namespace TrucoProject.Presentation {
 
 			vm.GameUpdated -= OnGameUpdated;
 			vm.Dispose();
+		}
+
+
+		public void InstantiateCardView(int rank, int value, string suit) {
+			_cardView = GD.Load<PackedScene>("res://Presentation/Card/Card.tscn").Instantiate<CardView>();
+			AddChild(_cardView);
+			
+
+	
 		}
 	}
 }

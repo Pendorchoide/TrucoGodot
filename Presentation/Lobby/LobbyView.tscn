@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dotlwyptp3vjw"]
 
-[ext_resource type="Script" uid="uid://ox7jm3t40e24" path="res://Presentation/Lobby/LobbyView.cs" id="1_wsvl2"]
+[ext_resource type="Script" uid="uid://biiav53orqxja" path="res://Presentation/Lobby/LobbyView.cs" id="1_wsvl2"]
 
 [node name="Lobby" type="Node2D"]
 

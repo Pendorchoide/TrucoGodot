@@ -1,24 +1,27 @@
 [gd_scene load_steps=2 format=3 uid="uid://bxlocdvxncxuw"]
 
-[ext_resource type="Script" uid="uid://cxqql788gcaaf" path="res://Presentation/Game/GameView.cs" id="1_xhyjn"]
+[ext_resource type="Script" uid="uid://g4invy0eschl" path="res://Presentation/Game/GameView.cs" id="1_xhyjn"]
 
-[node name="Game" type="Node2D"]
+[node name="Game" type="Node" node_paths=PackedStringArray("_gameId")]
+script = ExtResource("1_xhyjn")
+_gameId = NodePath("GameUI/VBoxContainer/gameId")
 
-[node name="Game" type="Control" parent="." node_paths=PackedStringArray("_gameId")]
+[node name="GameUI" type="Control" parent="."]
+z_index = -3
+z_as_relative = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
-script = ExtResource("1_xhyjn")
-_gameId = NodePath("VBoxContainer/gameId")
+mouse_filter = 2
 
-[node name="ColorRect" type="ColorRect" parent="Game"]
+[node name="ColorRect" type="ColorRect" parent="GameUI"]
 layout_mode = 1
 offset_right = 561.0
 offset_bottom = 561.0
 color = Color(0.33302537, 0.07521621, 0.4482966, 1)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Game"]
+[node name="VBoxContainer" type="VBoxContainer" parent="GameUI"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -28,7 +31,7 @@ offset_bottom = 536.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="gameId" type="Label" parent="Game/VBoxContainer"]
+[node name="gameId" type="Label" parent="GameUI/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 text = "Partida: "
