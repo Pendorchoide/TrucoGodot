@@ -1,0 +1,32 @@
+[gd_scene load_steps=2 format=3 uid="uid://cdlxotfnn265"]
+
+[ext_resource type="Script" uid="uid://f7sa43f7kqt0" path="res://Presentation/Common/CheatHelper/CheatHelper.cs" id="1_hc77i"]
+
+[node name="CheatHelper" type="Node" node_paths=PackedStringArray("lineEdit")]
+script = ExtResource("1_hc77i")
+lineEdit = NodePath("UI/LineEdit")
+
+[node name="UI" type="Control" parent="."]
+layout_direction = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="LineEdit" type="LineEdit" parent="UI"]
+visible = false
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -227.0
+offset_top = -31.0
+offset_right = 227.0
+grow_horizontal = 2
+grow_vertical = 0
+caret_blink = true

@@ -9,8 +9,8 @@ public partial class MouseEvents : Node{
     public bool LeftClickPressed;
     public bool RightClickPressed;
 
-    public bool LeftClickReleased;
-    public bool RightClickReleased;
+    //public bool LeftClickReleased;
+    //public bool RightClickReleased;
 
     public MouseEvents(Node2D parent){
       this.parent = parent;
@@ -24,16 +24,14 @@ public partial class MouseEvents : Node{
             if (mouseButton.Pressed && mouseButton.ButtonIndex == MouseButton.Left)
             {
                LeftClickPressed = true;
-               
             }
-            else if (!mouseButton.Pressed && mouseButton.ButtonIndex == MouseButton.Left)
+
+            if(!mouseButton.Pressed)
             {
-               LeftClickReleased = true;
-            }
-            else{
+                RightClickPressed = false;
                 LeftClickPressed = false;
-                LeftClickReleased = false;
             }
+
         }
 
         if (@event is InputEventMouseMotion motion)

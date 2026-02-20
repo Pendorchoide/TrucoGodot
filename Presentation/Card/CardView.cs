@@ -3,6 +3,12 @@ using Godot;
 
 public partial class  CardView : Node2D {
 
+    //Z Index Constants
+    public const int Z_INDEX_DEFAULT = 0;
+    public const int Z_INDEX_HOVER = 10;
+    public const int Z_INDEX_DRAGGING = 100;
+
+
   	//Original Godot Properties
     public int _originalZIndex;
     public Godot.Vector2 _originalPosition;
@@ -17,15 +23,18 @@ public partial class  CardView : Node2D {
 
 
 
-
+    bool MouseOver = false;
     bool Dragging = false;
+    bool Hovereable = true;
 
 
 
 
     public override void _Ready() {
 
-      Position = new Vector2(300, 300);
+      Position = new Vector2(GetViewportRect().Size.X / 2, GetViewportRect().Size.Y / 2 + 200);
+
+      
 
       //set original properties
       _originalScale = Scale;
@@ -42,17 +51,15 @@ public partial class  CardView : Node2D {
     }
 
     public override void _Process(double delta) {
-      var  screenSize = GetViewportRect().Size;
+      
 
-      var mousePos = GetGlobalMousePosition();
-
-      if (Dragging)
-      GlobalPosition = new Vector2(				//Actualiza la posicion de la carta arrastrada a la posicion del mouse
-    			Mathf.Clamp(mousePos.X, 0, screenSize.X),		//limita la posicion X dentro de los limites de la pantalla
-   				Mathf.Clamp(mousePos.Y, 0, screenSize.Y));      //limita la posicion Y dentro de los limites de la pantalla
+      DragCheck();
+      HoverCheck();
 
 
     }
+
+
 
     public override void _Input(InputEvent @event)
     {
@@ -61,21 +68,75 @@ public partial class  CardView : Node2D {
     
 
     private void OnMouseEntered() {
-      if (!mouseEvents.LeftClickPressed)
-        Animate.StartHover(this);
-      else {
-        Animate.StopHover(this);
-        Dragging = true;
-      }
+      MouseOver = true;
+      Hovereable = true;
+
     }
 
     private void OnMouseExited()
     {
-
-      Animate.StopHover(this);
+      if (Dragging) return;
+      MouseOver = false;
     }
     
+    private void HoverCheck(){
+      if (MouseOver && Hovereable) {
+        Animate.StartHover(this, _originalScale);
+        ZIndex = Z_INDEX_HOVER;
 
+
+      }
+      else if (!MouseOver && Hovereable) {
+        Animate.StopHover(this, _originalScale);
+        ZIndex = _originalZIndex;
+      }
+    }
+
+    private void DragCheck(){
+      var  screenSize = GetViewportRect().Size;
+
+      var mousePos = GetGlobalMousePosition();
+
+      if (MouseOver && mouseEvents.LeftClickPressed) {
+        Dragging = true;
+        FollowMouseShader();
+        Animate.StartHover(this, _originalScale);
+        ZIndex = Z_INDEX_DRAGGING;  //Bring to front while dragging
+      }
+
+      if (Dragging){
+        Vector2 MouseCordsBounded = new(				
+        Mathf.Clamp(mousePos.X, 0, screenSize.X),		//limita la posicion X dentro de los limites de la pantalla
+        Mathf.Clamp(mousePos.Y, 0, screenSize.Y));      //limita la posicion Y dentro de los limites de la pantalla
+      
+        Animate.MoveTo(this, MouseCordsBounded, .04f);
+        
+        if (!mouseEvents.LeftClickPressed){ //Dragging released
+          Dragging = false;
+          Hovereable = false;
+          ZIndex = _originalZIndex;  //Return to original Z index when not dragging
+          Animate.StopHover(this, _originalScale);
+          _cardSprite.SetInstanceShaderParameter("mouse_position",new Vector2(0,0)); //set "skew" to 0
+          Animate.MoveTo(this, _originalPosition, .2f, Tween.TransitionType.Spring, Tween.EaseType.Out);
+        }
+      }
+    }
+
+    private void ResetPosition(){
+      Animate.MoveTo(this, _originalPosition, .1f);
+    }
+
+
+
+  // SHADERS CONTROL
+
+  private void FollowMouseShader(){
+    Vector2 mousePos = GetGlobalMousePosition();
+    Vector2 localMousePos = ToLocal(mousePos);
+    _cardSprite.SetInstanceShaderParameter("mouse_position", localMousePos);
+
+
+  }
     
   }
 

@@ -38,7 +38,7 @@ public class GameViewModel {
     // ───────────── Handlers ─────────────
     // ...
 
-        private void CreateCard(int rank, int value, string suit) {
+    private void CreateCard(int rank, int value, string suit) {
         Game.Card = new Card(rank, value, suit);
 
 

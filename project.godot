@@ -21,9 +21,10 @@ SceneManager="*res://Infrastructure/Navigation/SceneManager.cs"
 
 [display]
 
-window/size/viewport_width=550
-window/size/viewport_height=550
-window/size/resizable=false
+window/size/viewport_width=480
+window/size/viewport_height=854
+window/stretch/mode="canvas_items"
+window/handheld/orientation=1
 
 [dotnet]
 
