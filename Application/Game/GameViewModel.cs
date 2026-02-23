@@ -9,6 +9,7 @@ public class GameViewModel {
     private readonly INavigationService navigation;
 
     public event Action<int, int, string> CardsRecived;
+    public event Action HandDealt;
 
 
 
@@ -27,7 +28,8 @@ public class GameViewModel {
 
         Game = new Game(nav.Payload);
         GameUpdated?.Invoke(); // 🔑 el VM notifica
-        CardsRecived?.Invoke(1,1,"Oro");
+        //CardsRecived?.Invoke(1,1,"Oro");
+        HandDealt?.Invoke();
         
     }
 
@@ -41,8 +43,6 @@ public class GameViewModel {
     private void CreateCard(int rank, int value, string suit) {
         Game.Card = new Card(rank, value, suit);
 
-
-        
     }
 
 }

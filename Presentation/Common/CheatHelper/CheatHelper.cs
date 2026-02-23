@@ -10,7 +10,7 @@ public partial class CheatHelper : Node
 	{
 		lineEdit.Visible = false;
 		lineEdit.Clear();
-		lineEdit.
+
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -28,12 +28,14 @@ public partial class CheatHelper : Node
 	{
 		if (@event is InputEventKey keyEvent )
 		{
-			if (keyEvent.Pressed && keyEvent.Keycode == Key.T && !lineEdit.IsEditing())
+			if (!lineEdit.IsEditing() && Input.IsActionJustReleased("ui_T"))
 			{
-				lineEdit.Visible = !lineEdit.Visible;
 				if (lineEdit.Visible)
+					lineEdit.GrabFocus();
 					lineEdit.Edit();
 				lineEdit.Clear();
+				lineEdit.Visible = !lineEdit.Visible;
+
 			}
 			
 		}

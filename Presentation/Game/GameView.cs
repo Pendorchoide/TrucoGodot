@@ -3,6 +3,8 @@ using Godot;
 namespace TrucoProject.Presentation {
 	public partial class GameView : ViewBase {
 		[Export] private Label _gameId;
+		[Export] private PlayerHand _playerHand;
+		
 
 		CardView _cardView;
 		private GameViewModel vm;
@@ -13,6 +15,9 @@ namespace TrucoProject.Presentation {
 			vm.GameUpdated += OnGameUpdated;
 
 			vm.CardsRecived += InstantiateCardView;
+
+			vm.HandDealt += CreateSlots;
+			vm.HandDealt += CreateHand;
 
 			vm.EnterGame();
 		}
@@ -40,8 +45,32 @@ namespace TrucoProject.Presentation {
 			_cardView = GD.Load<PackedScene>("res://Presentation/Card/Card.tscn").Instantiate<CardView>();
 			AddChild(_cardView);
 			
-
+		}
 	
+		public void CreateSlots(){
+
+			
+			var CardSlot1 = GD.Load<PackedScene>("res://Presentation/Hand/HandCardSlot.tscn").Instantiate<Control>();
+			var CardSlot2 = GD.Load<PackedScene>("res://Presentation/Hand/HandCardSlot.tscn").Instantiate<Control>();
+			var CardSlot3 = GD.Load<PackedScene>("res://Presentation/Hand/HandCardSlot.tscn").Instantiate<Control>();
+
+			
+			_playerHand.AddChild(CardSlot1);
+			_playerHand.AddChild(CardSlot2);
+			_playerHand.AddChild(CardSlot3);
+			
+
+		}
+
+		public void CreateHand() {
+			CardView _cardView1 = GD.Load<PackedScene>("res://Presentation/Card/Card.tscn").Instantiate<CardView>();
+			CardView _cardView2 = GD.Load<PackedScene>("res://Presentation/Card/Card.tscn").Instantiate<CardView>();
+			CardView _cardView3 = GD.Load<PackedScene>("res://Presentation/Card/Card.tscn").Instantiate<CardView>();
+
+			_playerHand.GetChild<Control>(0).AddChild(_cardView1);
+			_playerHand.GetChild<Control>(1).AddChild(_cardView2);
+			_playerHand.GetChild<Control>(2).AddChild(_cardView3);
+
 		}
 	}
 }

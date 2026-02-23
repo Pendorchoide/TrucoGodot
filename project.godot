@@ -30,6 +30,13 @@ window/handheld/orientation=1
 
 project/assembly_name="TrucoProject"
 
+[input]
+
+ui_T={
+"deadzone": 0.2,
+"events": []
+}
+
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0

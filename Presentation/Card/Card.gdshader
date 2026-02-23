@@ -9,8 +9,8 @@ uniform bool cull_back = true;
 
 instance uniform vec2 mouse_position;
 
-///uniform float y_rot : hint_range(-180, 180) = 0.0;
-///uniform float x_rot : hint_range(-180, 180) = 0.0;
+uniform float y_rot : hint_range(-180, 180) = 0.0;
+uniform float x_rot : hint_range(-180, 180) = 0.0;
 // At 0, the image retains its size when unrotated.
 // At 1, the image is resized so that it can do a full
 // rotation without clipping inside its rect.

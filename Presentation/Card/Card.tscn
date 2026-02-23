@@ -1,24 +1,22 @@
-[gd_scene load_steps=7 format=3 uid="uid://cn7022yjkgryo"]
+[gd_scene load_steps=6 format=3 uid="uid://cn7022yjkgryo"]
 
-[ext_resource type="Script" uid="uid://d34kh0c0cww0m" path="res://Presentation/Card/CardView.cs" id="1_83320"]
+[ext_resource type="Script" uid="uid://skpjn6sueicj" path="res://Presentation/Card/CardView.cs" id="1_83320"]
 [ext_resource type="Shader" uid="uid://sr8mfbytu4eu" path="res://Presentation/Card/Card.gdshader" id="1_at4a0"]
-[ext_resource type="Texture2D" uid="uid://cpo3f3hbf5d7x" path="res://Assets/Sprites/mazo_spritesheet.png" id="3_at4a0"]
+[ext_resource type="Texture2D" uid="uid://bgsbsvd4va0xq" path="res://Assets/Sprites/1_de_espada_spr.png" id="3_at4a0"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_at4a0"]
 shader = ExtResource("1_at4a0")
-shader_parameter/fov = 90.0000042275
+shader_parameter/fov = 1.0
 shader_parameter/cull_back = true
+shader_parameter/y_rot = 0.0
+shader_parameter/x_rot = 0.0
 shader_parameter/inset = 0.0
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_at4a0"]
-atlas = ExtResource("3_at4a0")
-region = Rect2(0, 0, 62, 95)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_byuar"]
 size = Vector2(62, 96)
 
 [node name="Card" type="Node2D" node_paths=PackedStringArray("_cardSprite", "_area2D")]
-scale = Vector2(3, 3)
+scale = Vector2(2.5, 2.5)
 script = ExtResource("1_83320")
 _cardSprite = NodePath("Sprite2D")
 _area2D = NodePath("Area2D")
@@ -26,7 +24,7 @@ _area2D = NodePath("Area2D")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_at4a0")
 use_parent_material = true
-texture = SubResource("AtlasTexture_at4a0")
+texture = ExtResource("3_at4a0")
 region_enabled = true
 region_rect = Rect2(0, 0, 62, 95)
 

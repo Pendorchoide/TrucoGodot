@@ -56,7 +56,7 @@ public static class Animate {
 
             translation.TweenProperty(
                 target,
-                "position",
+                "global_position",
                 Position,
                 speed
             );

@@ -30,16 +30,19 @@ public partial class  CardView : Node2D {
 
 
 
-    public override void _Ready() {
+    public override async void _Ready() {
 
-      Position = new Vector2(GetViewportRect().Size.X / 2, GetViewportRect().Size.Y / 2 + 200);
+     await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
 
-      
+     var slot = GetParent<Control>();
+     GlobalPosition = slot.GetGlobalRect().GetCenter();
+
+      _originalPosition = Position;
+     _originalGlobalPosition = GlobalPosition;
 
       //set original properties
       _originalScale = Scale;
       _originalRotation = Rotation;
-      _originalPosition = Position;
       _originalZIndex = ZIndex;
        
       //connect signals
@@ -55,7 +58,7 @@ public partial class  CardView : Node2D {
 
       DragCheck();
       HoverCheck();
-
+      //GD.Print(this.GlobalPosition);
 
     }
 
@@ -117,14 +120,12 @@ public partial class  CardView : Node2D {
           ZIndex = _originalZIndex;  //Return to original Z index when not dragging
           Animate.StopHover(this, _originalScale);
           _cardSprite.SetInstanceShaderParameter("mouse_position",new Vector2(0,0)); //set "skew" to 0
-          Animate.MoveTo(this, _originalPosition, .2f, Tween.TransitionType.Spring, Tween.EaseType.Out);
+          Animate.MoveTo(this, _originalGlobalPosition, .2f, Tween.TransitionType.Spring, Tween.EaseType.Out);
         }
       }
     }
 
-    private void ResetPosition(){
-      Animate.MoveTo(this, _originalPosition, .1f);
-    }
+
 
 
 
